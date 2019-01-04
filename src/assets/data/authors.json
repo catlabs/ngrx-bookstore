@@ -1,0 +1,20 @@
+{
+    "authors": [
+      {
+        "id": 1,
+        "name": "Luis Suarez",
+        "year": "1980"
+      },
+      {
+        "id": 2,
+        "name": "Lucas Torreira",
+        "year": "1953"
+      },
+      {
+        "id": 3,
+        "name": "Edison Cavani",
+        "year": "1971"
+      }
+    ]
+  }
+  

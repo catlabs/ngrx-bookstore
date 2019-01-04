@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthorsComponent } from './authors.component';
 import { AuthorsListComponent } from './authors-list/authors-list.component';
+import { AuthorDetailsComponent } from './author-details/author-details.component';
 
 const routes: Routes = [
   {
@@ -10,17 +11,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: AuthorsListComponent,
-        /* children: [
-          {
-            path: ':id',
-            component: CrisisDetailComponent
-          },
-          {
-            path: '',
-            component: CrisisCenterHomeComponent
-          }
-        ] */
+        component: AuthorsListComponent
+      },
+      {
+        path: ':id',
+        component: AuthorDetailsComponent
       }
     ]
   }
