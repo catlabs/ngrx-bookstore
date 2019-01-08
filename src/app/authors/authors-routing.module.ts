@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthorsComponent } from './authors.component';
 import { AuthorsListComponent } from './authors-list/authors-list.component';
 import { AuthorDetailsComponent } from './author-details/author-details.component';
+import { AuthorsGuard } from '../core/guards/authors.guard';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       },
       {
         path: ':id',
+        canActivate: [AuthorsGuard],
         component: AuthorDetailsComponent
       }
     ]

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { of } from 'rxjs';
-import { switchMap, map, withLatestFrom } from 'rxjs/operators';
+import { switchMap, map, withLatestFrom, tap } from 'rxjs/operators';
 
 import { AppState } from '../state/app.state';
 import {
@@ -13,8 +13,8 @@ import {
   GetAuthors
 } from '../actions/author.actions';
 import { AuthorService } from '../../services/author.service';
-import { AuthorHttp } from '../../models/http-models/author-http.interface';
 import { selectAuthorList } from '../selectors/author.selector';
+import { Author } from '../../models/author.interface';
 
 @Injectable()
 export class AuthorEffects {
@@ -32,13 +32,20 @@ export class AuthorEffects {
   @Effect()
   getAuthors$ = this._actions$.pipe(
     ofType<GetAuthors>(AuthorActionType.GetAuthors),
-    switchMap(() => this._authorService.getAuthors()),
-    switchMap((authorHttp: AuthorHttp) => of(new GetAuthorsSuccess(authorHttp.authors)))
+    withLatestFrom(this._store),
+    switchMap(([action, state]) => {
+      if (!state.authors.authors) {
+        return this._authorService.getAuthors();
+      } else {
+        return of(state.authors.authors);
+      }
+    }),
+    switchMap((authors: Author[]) => of(new GetAuthorsSuccess(authors)))
   );
 
   constructor(
     private _authorService: AuthorService,
     private _actions$: Actions,
     private _store: Store<AppState>
-  ) {}
+  ) { }
 }

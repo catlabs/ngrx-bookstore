@@ -1,3 +1,7 @@
-<p>
-  authors-list works!
-</p>
+<div fxLayout="row wrap" fxLayoutAlign="space-between" fxLayoutGap="20px">
+  <mat-card *ngFor="let author of authors$ | async" [routerLink]="'/authors/'+author.id">
+      <mat-card-content>
+        {{ author.name }}
+        </mat-card-content>
+  </mat-card>
+</div>

@@ -1,3 +1,4 @@
-<p>
-  author-details works!
-</p>
+<div *ngIf="author$ | async as author">
+  <h1>{{ author.name }}</h1>
+  <h2>{{ author.year }}</h2>
+</div>
